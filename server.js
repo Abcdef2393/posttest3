@@ -1,4 +1,5 @@
 console.log("Token exists:", !!process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN);
 import { Client, GatewayIntentBits } from 'discord.js';
 import express from "express";
 const app = express();
@@ -59,6 +60,3 @@ client.on('messageCreate', async (message) => {
 app.listen(process.env.PORT || 3000, () => {
     console.log("Web server running");
 });
-
-
-client.login(process.env.DISCORD_TOKEN);
