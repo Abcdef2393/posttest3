@@ -1,5 +1,4 @@
 console.log("Token exists:", !!process.env.DISCORD_TOKEN);
-client.login(process.env.DISCORD_TOKEN);
 import { Client, GatewayIntentBits } from 'discord.js';
 import express from "express";
 const app = express();
@@ -15,7 +14,7 @@ const client = new Client({
         GatewayIntentBits.MessageContent   
     ]
 });
-
+client.login(process.env.DISCORD_TOKEN);
 const TARGET_CHANNEL_ID = process.env.CHANNEL_ID; 
 const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
 const messages = await channel.messages.fetch();
