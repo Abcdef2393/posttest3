@@ -1,4 +1,5 @@
 console.log("Token exists:", !!process.env.DISCORD_TOKEN);
+console.log(process.env.CHANNEL_ID);
 import { Client, GatewayIntentBits } from 'discord.js';
 import express from "express";
 const app = express();
