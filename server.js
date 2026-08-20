@@ -34,4 +34,4 @@ client.on('messageCreate', async (message) => {
 });
 
 
-// client.login("YOUR_BOT_TOKEN_HERE");
+client.login(process.env.DISCORD_TOKEN);
