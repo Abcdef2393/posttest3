@@ -11,6 +11,17 @@ const client = new Client({
 });
 
 const TARGET_CHANNEL_ID = process.env.CHANNEL_ID; 
+const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
+const messages = await channel.messages.fetch();
+const newestMessage = messages.first();
+const currentMessages = [];
+
+for (const message of messages.values()) {
+    if (message.id !== newestMessage.id) {
+        await message.delete();
+    }
+}
+    
 
 client.once('ready', () => {
     console.log(`🤖 clocked in as ${client.user.tag}! Ready to catch orders.`);
@@ -28,6 +39,13 @@ client.on('messageCreate', async (message) => {
     if (messageAuthorIdentity === botSelfIdentity) return;
 
     console.log(`captured valid ticket:"${robloxRawContent}"`);
+    currentMessages.push({
+        sendertype: messageSenderType,
+        messagelocation: messageLocation,
+        content: robloxRawContent,
+        sender: messageAuthorIdentity
+    });
+    
 
     // and run 'await message.delete()' once the kitchen is done cooking.
 
