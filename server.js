@@ -1,6 +1,11 @@
 
 import { Client, GatewayIntentBits } from 'discord.js';
+import express from "express";
+const app = express();
 
+app.get("/", (req, res) => {
+    res.send("Bot is running");
+});
 
 const client = new Client({
     intents: [
@@ -49,6 +54,10 @@ client.on('messageCreate', async (message) => {
 
     // and run 'await message.delete()' once the kitchen is done cooking.
 
+});
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log("Web server running");
 });
 
 
