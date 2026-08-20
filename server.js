@@ -22,7 +22,7 @@ const client = new Client({
 
 client.once('ready', async () => {
     console.log(`🤖 clocked in as ${client.user.tag}! Ready to catch orders.`);
-    if (channelLockFlag = false) {
+    if (channelLockFlag === false) {
         const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
         const messages = await channel.messages.fetch();
         const newestMessage = messages.first();
