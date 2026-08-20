@@ -4,7 +4,6 @@ import { Client, GatewayIntentBits } from 'discord.js';
 import express from "express";
 const app = express();
 const TARGET_CHANNEL_ID = process.env.CHANNEL_ID; 
-print(TARGET_CHANNEL_ID);
 
 app.get("/", (req, res) => {
     res.send("Bot is running");
