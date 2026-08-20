@@ -18,7 +18,7 @@ const TARGET_CHANNEL_ID = process.env.CHANNEL_ID;
 client.login(process.env.DISCORD_TOKEN);
 const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
 const messages = await channel.messages.fetch();
-console.log(messages)
+console.log(messages);
 const newestMessage = messages.first();
 const currentMessages = [];
 
