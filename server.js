@@ -1,8 +1,10 @@
 console.log("Token exists:", !!process.env.DISCORD_TOKEN);
+let channelLockFlag = false
 import { Client, GatewayIntentBits } from 'discord.js';
 import express from "express";
 const app = express();
 const TARGET_CHANNEL_ID = process.env.CHANNEL_ID; 
+const currentMessages = [];
 
 app.get("/", (req, res) => {
     res.send("Bot is running");
@@ -20,16 +22,18 @@ const client = new Client({
 
 client.once('ready', async () => {
     console.log(`🤖 clocked in as ${client.user.tag}! Ready to catch orders.`);
-    const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
-    const messages = await channel.messages.fetch();
-    const newestMessage = messages.first();
-    const currentMessages = [];
+    if (channelLockFlag = false) {
+        const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
+        const messages = await channel.messages.fetch();
+        const newestMessage = messages.first();
 
-    for (const message of messages.values()) {
-        if (message.id !== newestMessage.id) {
-            await message.delete();
+        for (const message of messages.values()) {
+            if (message.id !== newestMessage.id) {
+                await message.delete();
+            }
         }
     }
+    channelLockFlag = true
 });
 
 client.on('messageCreate', async (message) => {
