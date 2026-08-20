@@ -15,6 +15,7 @@ const client = new Client({
     ]
 });
 const TARGET_CHANNEL_ID = process.env.CHANNEL_ID; 
+client.login(process.env.DISCORD_TOKEN);
 const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
 const messages = await channel.messages.fetch();
 const newestMessage = messages.first();
@@ -58,5 +59,3 @@ client.on('messageCreate', async (message) => {
 app.listen(process.env.PORT || 3000, () => {
     console.log("Web server running");
 });
-
-client.login(process.env.DISCORD_TOKEN);
