@@ -2,6 +2,7 @@ console.log("Token exists:", !!process.env.DISCORD_TOKEN);
 import { Client, GatewayIntentBits } from 'discord.js';
 import express from "express";
 const app = express();
+const TARGET_CHANNEL_ID = process.env.CHANNEL_ID; 
 
 app.get("/", (req, res) => {
     res.send("Bot is running");
@@ -14,23 +15,22 @@ const client = new Client({
         GatewayIntentBits.MessageContent   
     ]
 });
-const TARGET_CHANNEL_ID = process.env.CHANNEL_ID; 
-client.login(process.env.DISCORD_TOKEN);
-const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
-const messages = await channel.messages.fetch();
-console.log(messages);
-const newestMessage = messages.first();
-const currentMessages = [];
 
-for (const message of messages.values()) {
-    if (message.id !== newestMessage.id) {
-        await message.delete();
-    }
-}
     
 
 client.once('ready', () => {
     console.log(`🤖 clocked in as ${client.user.tag}! Ready to catch orders.`);
+    const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
+    const messages = await channel.messages.fetch();
+    console.log(messages);
+    const newestMessage = messages.first();
+    const currentMessages = [];
+
+    for (const message of messages.values()) {
+        if (message.id !== newestMessage.id) {
+            await message.delete();
+        }
+    }
 });
 
 client.on('messageCreate', async (message) => {
@@ -60,3 +60,4 @@ client.on('messageCreate', async (message) => {
 app.listen(process.env.PORT || 3000, () => {
     console.log("Web server running");
 });
+client.login(process.env.DISCORD_TOKEN);
