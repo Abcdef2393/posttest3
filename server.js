@@ -1,5 +1,4 @@
 console.log("Token exists:", !!process.env.DISCORD_TOKEN);
-console.log(process.env.CHANNEL_ID);
 import { Client, GatewayIntentBits } from 'discord.js';
 import express from "express";
 const app = express();
@@ -23,7 +22,6 @@ client.once('ready', async () => {
     console.log(`🤖 clocked in as ${client.user.tag}! Ready to catch orders.`);
     const channel = await client.channels.fetch(TARGET_CHANNEL_ID);
     const messages = await channel.messages.fetch();
-    console.log(messages);
     const newestMessage = messages.first();
     const currentMessages = [];
 
